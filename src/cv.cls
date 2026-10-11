@@ -9,7 +9,8 @@
 %%     that text extractors (ATS) read clean, whole words;
 %%   - left/right rows built with \cvrow, so overlapping text is reported as
 %%     "Overfull \hbox" instead of being hidden;
-%%   - unused macros, packages and dead code removed.
+%%   - unused macros, packages and dead code removed;
+%%   - Italian and English from one source (\tr, english option).
 %%
 %% This work may be distributed and/or modified under the conditions of the
 %% LaTeX Project Public License, either version 1.3c of this license or (at
@@ -22,9 +23,15 @@
 \DeclareOption{ragged2e}{\@raggedtwoetrue}
 \newif\if@withhyper
 \DeclareOption{withhyper}{\@withhypertrue}
+\newif\if@english
+\DeclareOption{english}{\@englishtrue}
 \DeclareOption*{\PassOptionsToClass{\CurrentOption}{extarticle}}
 \ProcessOptions\relax
 \LoadClass{extarticle}
+
+%% \tr{italiano}{english}: both versions side by side in the source; the english
+%% class option prints the second. One source, so the two CVs cannot drift apart.
+\newcommand{\tr}{\if@english\expandafter\@secondoftwo\else\expandafter\@firstoftwo\fi}
 
 \RequirePackage{etoolbox}
 \RequirePackage[a-1b]{pdfx}
@@ -60,7 +67,7 @@
 
 \if@withhyper
   \AtBeginDocument{%
-    \hypersetup{hidelinks}
+    \hypersetup{hidelinks}% title, author and language come from <job>.xmpdata, read by pdfx
     \urlstyle{same}
   }
 \fi

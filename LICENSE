@@ -16,8 +16,8 @@ This repository contains material under different terms.
 
    MIT License, full text below.
 
-3. The CV itself: src/cv.tex, src/sections/, docs/preview.png and the PDF files
-   published in the GitHub releases of this repository.
+3. The CV itself: src/cv.tex, src/sections/, src/*.xmpdata, docs/preview*.png
+   and the PDF files published in the GitHub releases of this repository.
 
    Copyright (c) 2026 Alessio Barbanti. All rights reserved.
    This is personal content, published to be read, not to be reused.
