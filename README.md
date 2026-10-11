@@ -8,7 +8,7 @@ My CV, written in LaTeX: one page, readable by applicant tracking systems (ATS),
 
 ## What's inside
 
-- **ATS-friendly PDF.** The text layer matches what is printed: ligatures are disabled (`fi` stays two letters), icons are hidden from text extraction, and the file is PDF/A-1b.
+- **ATS-friendly PDF.** The text layer matches what is printed: ligatures are disabled (`fi` stays two letters), words are never split across lines, icons are hidden from text extraction, and the file is PDF/A-1b.
 - **Checked build.** `scripts/build.py` fails if the CV spills onto a second page or if any text crosses the margins or overlaps other text, and shows which text.
 - **Review agents.** Two [Claude Code](https://claude.com/claude-code) subagents review the CV: one for content, one for style.
 
@@ -16,7 +16,7 @@ My CV, written in LaTeX: one page, readable by applicant tracking systems (ATS),
 
 ```
 src/cv.tex             header, section order, footer
-src/sections/          one file per section: experience, education, projects
+src/sections/          one file per section: experience, skills, projects, education
 src/cv.cls             layout and macros: \cvexperience, \cveducation, \cvproject, \cvtag
 scripts/build.py       build, checks, preview and release
 scripts/test_build.py  tests for the log checks in build.py
