@@ -56,7 +56,7 @@ Commit and push the changes, then:
 scripts/build.py --release
 ```
 
-This creates a GitHub release named after today's date with `Alessio_Barbanti_CV.pdf` attached. The download link above always points to the latest release. It needs the [GitHub CLI](https://cli.github.com/); under WSL the Windows `gh.exe` works as well.
+This creates a GitHub release named after today's date (`2026-10-11`, then `2026-10-11.2` for a second one on the same day) with `Alessio_Barbanti_CV.pdf` attached. The download link above always points to the latest release. It needs the [GitHub CLI](https://cli.github.com/); under WSL the Windows `gh.exe` works as well.
 
 ## Review agents
 

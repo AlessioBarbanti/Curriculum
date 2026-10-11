@@ -55,13 +55,16 @@ def release():
     gh = shutil.which("gh") or shutil.which("gh.exe")  # in WSL the Windows gh.exe works too
     if not gh:
         sys.exit("gh not found: install the GitHub CLI")
-    tag = datetime.date.today().isoformat()
+    today = tag = datetime.date.today().isoformat()
+    n = 1
+    while subprocess.run([gh, "release", "view", tag], cwd=ROOT, capture_output=True).returncode == 0:
+        n += 1  # a release already exists today: a new tag, so it points at the current commit
+        tag = f"{today}.{n}"
     name = re.search(r"\\name\{(.+?)\}", (ROOT / "src" / "cv.tex").read_text(encoding="utf-8")).group(1)
     asset = f"build/{name.replace(' ', '_')}_CV.pdf"  # the file name recruiters download
     shutil.copy(ROOT / PDF, ROOT / asset)
-    create = [gh, "release", "create", tag, asset, "--title", f"CV {tag}", "--notes", f"CV updated on {tag}."]
-    if subprocess.run(create, cwd=ROOT).returncode != 0:  # today's release exists: replace its PDF
-        subprocess.run([gh, "release", "upload", tag, asset, "--clobber"], cwd=ROOT, check=True)
+    subprocess.run([gh, "release", "create", tag, asset, "--title", f"CV {tag}", "--notes", f"CV updated on {today}."],
+                   cwd=ROOT, check=True)
 
 
 def main():
