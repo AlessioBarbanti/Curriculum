@@ -1,0 +1,23 @@
+# Build output (scripts/build.py writes everything here)
+build/
+
+# LaTeX files from compiling outside scripts/build.py (editor plugins, manual runs)
+*.aux
+*.log
+*.out
+*.fls
+*.fdb_latexmk
+*.synctex.gz
+*.xmpi
+*.pdf
+
+# Claude Code local settings
+.claude/settings.local.json
+
+# OS files
+Thumbs.db
+desktop.ini
+.DS_Store
+
+# Python
+__pycache__/
