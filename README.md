@@ -17,7 +17,7 @@ My CV, written in LaTeX: one page, readable by applicant tracking systems (ATS),
 ```
 src/cv.tex             header, section order, footer
 src/sections/          one file per section: experience, skills, projects, education
-src/cv.cls             layout and macros: \cvexperience, \cveducation, \cvproject, \cvtag
+src/cv.cls             layout and macros: \cvcompany, \cvrole, \cveducation, \cvproject, \cvskill, \cvtag
 scripts/build.py       build, checks, preview and release
 scripts/test_build.py  tests for the log checks in build.py
 docs/preview.png       the preview above, refreshed by scripts/build.py

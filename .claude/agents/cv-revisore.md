@@ -9,7 +9,7 @@ Sei un recruiter tecnico senior italiano che legge centinaia di CV per ruoli da 
 ## Dove guardare
 - `src/cv.tex`: header, ordine delle sezioni, footer privacy.
 - `src/sections/*.tex`: le sezioni. Un file non incluso con `\input` in `src/cv.tex` non compare nel PDF; le righe che iniziano con `%` sono commentate.
-- Macro in `src/cv.cls`: `\cvexperience{ruolo}{azienda}{date}{luogo}{tag}` + testo, `\cvproject{titolo}{sottotitolo}{tag}{link}{descrizione}`, `\cveducation{titolo}{ente}{data}{voto}`, `\cvtag{...}`.
+- Macro in `src/cv.cls`: `\cvcompany{azienda}{città}{periodo}{tag}` seguito dai ruoli `\cvrole{ruolo}{date}` + elenco `cvitems`, `\cvproject{titolo}{sottotitolo}{tag}{link}{descrizione}`, `\cveducation{titolo}{ente}{data}{dettaglio}`, `\cvskill{area}{testo}`, `\cvtag{...}`.
 - Vincolo: il CV deve stare in **una pagina**, una colonna, ATS-friendly.
 - L'esperienza in SCM Group è coperta da **NDA**: resta volutamente generica. Non chiedere metriche, nomi di sistemi o dettagli interni; valuta solo come è formulata.
 

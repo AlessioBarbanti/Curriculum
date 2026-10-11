@@ -151,22 +151,39 @@
 %% margin, TeX reports "Overfull \hbox" in the log (\makebox would hide it).
 \newcommand{\cvrow}[2]{\par\noindent\hbox to\linewidth{{#1}\hfil\hskip1em{#2}}\par}
 
-%% \cveducation{degree}{school}{date}{grade}
+%% \cveducation{degree}{school}{date}{detail: thesis, grade...}
 \newcommand{\cveducation}[4]{%
   \cvrow{\small\color{emphasis}\textbf{#1}}{\small\color{emphasis}\textbf{#2}}\smallskip
-  \cvrow{\small\ifstrequal{#4}{}{}{\faClipboardCheck~#4}}{\small\ifstrequal{#3}{}{}{\faCalendar~#3}}
+  \cvrow{\small #4}{\small\ifstrequal{#3}{}{}{\faCalendar~#3}}
   \medskip\normalsize
 }
 
 %% Icon in front of a row of \cvtag
 \newcommand{\cvtags}[1]{\footnotesize\ifstrequal{#1}{}{}{\faCode\hspace{1pt}#1}}
 
-%% \cvexperience{role}{company}{dates}{city}{tags} followed by the description
-\newcommand{\cvexperience}[5]{%
-  \cvrow{\small\color{emphasis}\textbf{#1}}{\small\color{emphasis}\textbf{#2}, #4}\smallskip
-  \cvrow{\cvtags{#5}}{\small\ifstrequal{#3}{}{}{\faCalendar~#3}}
+%% \cvcompany{company}{city}{period}{tags}: an employer, followed by its roles (\cvrole),
+%% so a career inside one company reads at a glance
+\newcommand{\cvcompany}[4]{%
+  \cvrow{\color{emphasis}\textbf{#1}, #2}{\small\ifstrequal{#3}{}{}{\faCalendar~#3}}\smallskip
+  \cvrow{\cvtags{#4}}{}
   \medskip\normalsize
 }
+
+%% The roles of one company on a timeline, LinkedIn style: a line along the roles
+%% (the rule spans the whole block in a single pass) and a dot on each \cvrole.
+\newlength{\cv@gutter}
+\setlength{\cv@gutter}{1em}
+\newenvironment{cvroles}
+  {\par\nointerlineskip\noindent\hbox\bgroup
+   \kern.4em{\color{accent!40}\vrule width .7pt height .35em}\kern\dimexpr\cv@gutter-.4em-.7pt\relax
+   \begin{minipage}[t]{\dimexpr\linewidth-\cv@gutter\relax}}
+  {\end{minipage}\egroup\par}
+
+%% \cvrole{role}{dates} followed by its description (usually a cvitems list), inside cvroles
+\newcommand{\cvrole}[2]{%
+  \cvrow{\small\color{emphasis}%
+    \tikz[overlay]\fill[accent] (\dimexpr-\cv@gutter+.4em+.35pt\relax, .35em) circle (2.2pt);%
+    \textbf{#1}}{\small #2}\smallskip}
 
 %% \cvproject{title}{subtitle}{tags}{link} followed by the description
 \newcommand{\cvproject}[4]{%
@@ -175,8 +192,12 @@
   \medskip\normalsize
 }
 
-%% Bullet list for descriptions, compact and aligned with the text above
-\newenvironment{cvitems}{\small\begin{itemize}[nosep, leftmargin=1em, label=\textbullet]}{\end{itemize}}
+%% Bullet list for descriptions, compact and aligned with the text above. Nested, it
+%% details the item above it: dashes, and a little space before the next item.
+\setlist[itemize]{nosep, leftmargin=1em}
+\setlist[itemize,1]{label=\textbullet}
+\setlist[itemize,2]{label=\textendash, after=\vspace{2pt}}
+\newenvironment{cvitems}{\small\begin{itemize}}{\end{itemize}}
 
 %% \cvskill{area}{what you do and with which tools}. The area stays inline with its
 %% text: aligned in a column, ATS parsers read all areas first and lose the pairing.
